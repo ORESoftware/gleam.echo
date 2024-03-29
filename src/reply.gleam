@@ -1,11 +1,11 @@
-import echo/web
-import gleam/io
-import gleam/int
-import gleam/string
-import gleam/result
-import gleam/erlang/process
 import gleam/erlang/os
+import gleam/erlang/process
 import gleam/http/elli
+import gleam/int
+import gleam/io
+import gleam/result
+import gleam/string
+import reply/web
 
 pub fn main() {
   let port =
@@ -14,7 +14,7 @@ pub fn main() {
     |> result.unwrap(3000)
 
   // Start the web server process
-  assert Ok(_) =
+  let assert Ok(_) =
     web.stack()
     |> elli.start(on_port: port)
 

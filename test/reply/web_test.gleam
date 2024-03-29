@@ -1,7 +1,7 @@
-import echo/web
 import gleam/http.{Get, Post}
 import gleam/http/request
 import gleam/http/response
+import reply/web
 
 pub fn not_found_test() {
   let resp =
@@ -11,8 +11,8 @@ pub fn not_found_test() {
     |> request.set_body(<<>>)
     |> web.service()
 
-  assert 404 = resp.status
-  assert <<"There's nothing here. Try POSTing to /echo":utf8>> = resp.body
+  let assert 404 = resp.status
+  let assert <<"There's nothing here. Try POSTing to /echo":utf8>> = resp.body
 }
 
 pub fn hello_nubi_test() {
@@ -23,8 +23,8 @@ pub fn hello_nubi_test() {
     |> request.set_body(<<>>)
     |> web.service()
 
-  assert 200 = resp.status
-  assert <<"Hello, Nubi!":utf8>> = resp.body
+  let assert 200 = resp.status
+  let assert <<"Hello, Nubi!":utf8>> = resp.body
 }
 
 pub fn hello_joe_test() {
@@ -35,8 +35,8 @@ pub fn hello_joe_test() {
     |> request.set_body(<<>>)
     |> web.service()
 
-  assert 200 = resp.status
-  assert <<"Hello, Joe!":utf8>> = resp.body
+  let assert 200 = resp.status
+  let assert <<"Hello, Joe!":utf8>> = resp.body
 }
 
 pub fn echo_1_test() {
@@ -48,9 +48,9 @@ pub fn echo_1_test() {
     |> request.prepend_header("content-type", "application/octet-stream")
     |> web.service()
 
-  assert 200 = resp.status
-  assert <<1, 2, 3, 4>> = resp.body
-  assert Ok("application/octet-stream") =
+  let assert 200 = resp.status
+  let assert <<1, 2, 3, 4>> = resp.body
+  let assert Ok("application/octet-stream") =
     response.get_header(resp, "content-type")
 }
 
@@ -63,9 +63,9 @@ pub fn echo_2_test() {
     |> request.prepend_header("content-type", "text/plain")
     |> web.service()
 
-  assert 200 = resp.status
-  assert <<"Hello, Gleam!":utf8>> = resp.body
-  assert Ok("text/plain") = response.get_header(resp, "content-type")
+  let assert 200 = resp.status
+  let assert <<"Hello, Gleam!":utf8>> = resp.body
+  let assert Ok("text/plain") = response.get_header(resp, "content-type")
 }
 
 pub fn echo_3_test() {
@@ -76,8 +76,8 @@ pub fn echo_3_test() {
     |> request.set_body(<<"Hello, Gleam!":utf8>>)
     |> web.service()
 
-  assert 200 = resp.status
-  assert <<"Hello, Gleam!":utf8>> = resp.body
-  assert Ok("application/octet-stream") =
+  let assert 200 = resp.status
+  let assert <<"Hello, Gleam!":utf8>> = resp.body
+  let assert Ok("application/octet-stream") =
     response.get_header(resp, "content-type")
 }
